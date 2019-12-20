@@ -4,9 +4,10 @@ let fs = require('fs')
 const { JSDOM } = jsdom
 
 const getUrls = () => {
-  let text = fs.readFileSync("./files/urls").toString('utf-8');
+  let text = fs.readFileSync("./files/urls.txt").toString('utf-8');
   let textByLine = text.split("\n")
-  return textByLine
+  const filter = textByLine.filter(item => item !== '' && !item.includes('!#'))
+  return filter
 }
 
 const getUrlData = async (url) => {
