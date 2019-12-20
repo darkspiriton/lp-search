@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --config jest.config.json --verbose=true"
+    "test": "jest --config jest.config.json --verbose=false"
   },
   "author": "",
   "license": "ISC",
