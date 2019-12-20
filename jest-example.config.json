@@ -1,0 +1,14 @@
+{
+  "reporters": [
+    "default",
+    [
+      "./node_modules/jest-html-reporter",
+      {
+        "pageTitle": "Validate Lps Comunication Consent",
+        "includeConsoleLog": true,
+        "includeFailureMsg": true,
+        "outputPath": "./reports/Report-lp-urls.html"
+      }
+    ]
+  ]
+}
