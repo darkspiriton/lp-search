@@ -11,6 +11,10 @@ const getUrls = () => {
   return filter
 }
 
+const getTextFind = () => {
+  return process.env.TEXT_FIND
+}
+
 const getUrlData = async (url) => {
   let response = await axios.get(url)
   const dom = new JSDOM(response.data)
@@ -34,5 +38,6 @@ module.exports = {
   getUrlData,
   findDiff,
   getUrls,
+  getTextFind
 }
 
