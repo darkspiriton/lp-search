@@ -1,4 +1,4 @@
-/files/*
-/reports/*
+/files/urls.txt
+/reports/report-lp-urls.html
 /node_modules/*
 jest.config.json
