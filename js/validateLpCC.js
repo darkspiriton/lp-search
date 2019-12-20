@@ -1,10 +1,11 @@
+require('dotenv').config()
 let axios = require('axios')
 let jsdom = require('jsdom')
 let fs = require('fs')
 const { JSDOM } = jsdom
 
 const getUrls = () => {
-  let text = fs.readFileSync("./files/urls.txt").toString('utf-8');
+  let text = fs.readFileSync(`./files/${process.env.FILE_NAME}`).toString('utf-8');
   let textByLine = text.split("\n")
   const filter = textByLine.filter(item => item !== '' && !item.includes('!#'))
   return filter

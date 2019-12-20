@@ -2,3 +2,4 @@
 /reports/report-lp-urls.html
 /node_modules/*
 jest.config.json
+.env
