@@ -4,7 +4,9 @@
 
 ## ¿Cómo empezar?
 
-  1. Creat archivo llamado urls.txt en ./files
-  2. ```npm install```
-  3. ```npm test```
-  4. Abrir los reportes en ./reports
+  1. Descargar e unstalar Node LTS [Download](https://nodejs.org/en/)
+  2. Crear archivo llamado urls.txt en ./files
+  3. Duplicar archivo jest-example.config.json con el nombre de jest.config.json
+  4. ```npm install```
+  5. ```npm test```
+  6. Abrir los reportes en ./reports
