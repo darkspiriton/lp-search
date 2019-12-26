@@ -5,72 +5,74 @@ let fs = require('fs')
 let startsWith = require('lodash/startsWith')
 let split = require('lodash/split')
 let head = require('lodash/head')
+let isNull = require('lodash/isNull')
 const { JSDOM } = jsdom
 
 const getUrls = () => {
-  let text = fs.readFileSync(`./files/${process.env.FILE_NAME}`).toString('utf-8');
+  let text = fs.readFileSync(`./files/${process.env.FILE_URL_NAME}`).toString('utf-8');
   let textByLine = text.split("\n")
   const filter = textByLine.filter(item => item !== '' && !item.includes('!#'))
   return filter
 }
 
-const getTextFind = () => {
-  return process.env.TEXT_FIND
+const getIds = () => {
+  let text = fs.readFileSync(`./files/${process.env.FILE_ID_NAME}`).toString('utf-8');
+  let textByLine = text.split("\n")
+  const filter = textByLine.filter(item => item !== '' && !item.includes('!#'))
+
+  // let values = []
+  // filter.forEach(item => {
+  //   values[item] = process.env[item]
+  // })
+
+  return filter
 }
 
-const getHTMLFind = () => {
-  return process.env.HTML_FIND
+const connectURL = async (url) => {
+  try {
+    let response = await axios.get(url)
+    const dom = new JSDOM(response.data)
+    return dom
+  } catch (error) {
+
+  }
+
 }
 
-
-const getUrlData = async (url, text) => {
-  let response = await axios.get(url)
-  const dom = new JSDOM(response.data)
-  let textInitial = head(split(text, ' ', 1))
-  let quotes = dom.window.document.querySelectorAll("p")
-  let filterQuotes = []
-  quotes.forEach(quote => {
-    let classNameParent = quote.parentElement.className
-    let valid = classNameParent.includes('text')
-    if (valid) {
-      let validText = startsWith(quote.textContent, textInitial)
-      if (validText) {
-        filterQuotes.push(quote)
-      }
-    }
+const getKeys = async (dom, keys) => {
+  let values = []
+  keys.forEach(key => {
+    partial = dom.window.document.getElementById(key)
+    values[key] = findTextContent(partial)
   })
-  return filterQuotes
+  return values
 }
 
-const getTextContent = async (url, text) => {
-  let data = await getUrlData(url, text)
-  let texts = []
-  data.forEach(item => texts.push(item.textContent))
-  return texts
+const findTextContent = (partial) => {
+  if (isNull(partial)) return null
+  let isChild = partial.textContent.startsWith('\n')
+  return isChild ? partial.firstElementChild.textContent : partial.textContent
 }
 
-const getInnerHTML = async (url, text) => {
-  let data = await getUrlData(url, text)
-  let texts = []
-  data.forEach(item => texts.push(item.innerHTML))
-  return texts
+const getUrlDataUpdate = async (url, keys) => {
+  let dom = await connectURL(url)
+  let values = getKeys(dom, keys)
+  return values
 }
 
-const findDiff = (str1, str2) => {
-  let diff = "";
-  str2.split('').forEach(function (val, i) {
-    if (val != str1.charAt(i))
-      diff += val;
-  });
-  return diff;
+const getUrlData = async (url, key) => {
+  let dom = await connectURL(url)
+  partial = dom.window.document.getElementById(key)
+  return findTextContent(partial)
 }
+
+
 
 
 module.exports = {
   getUrls,
-  getTextFind,
-  getHTMLFind,
-  getTextContent,
-  getInnerHTML
+  getIds,
+  getUrlDataUpdate,
+  getUrlData
 }
 

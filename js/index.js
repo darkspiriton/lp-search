@@ -1,10 +1,11 @@
 const validateLpService = require('./validateLpCC')
-const text = validateLpService.getTextFind()
+let ids = validateLpService.getIds()
+console.log(ids)
 
 let dataResponse = async () => {
-  let data = await validateLpService.getInnerHTML('https://www.freewayinsurance.com/lp/NT082-FWYCA-A-GO-LP-E-02502/', text)
-  data.forEach(item => console.log(item))
+  let keys = ids
+  let data = await validateLpService.getUrlDataUpdate('https://www.freewayinsurance.com/lp/NT082-FWYCA-A-GO-LP-E-02502/', keys)
+  console.log(data)
+  // data.forEach(item => console.log(item))
 }
 dataResponse()
-
-// console.log(validateLpService.getUrls(text))
