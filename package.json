@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "generate": "node js/index.js",
     "test": "jest --config jest.config.json --verbose=false"
   },
   "author": "",
