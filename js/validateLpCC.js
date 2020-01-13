@@ -19,14 +19,22 @@ const getIds = () => {
   let text = fs.readFileSync(`./files/${process.env.FILE_ID_NAME}`).toString('utf-8');
   let textByLine = text.split("\n")
   const filter = textByLine.filter(item => item !== '' && !item.includes('!#'))
-
-  // let values = []
-  // filter.forEach(item => {
-  //   values[item] = process.env[item]
-  // })
-
   return filter
 }
+
+const getFileData = () => {
+  let text = fs.readFileSync(`./test/data.txt`).toString('utf-8');
+  return JSON.parse(text)
+}
+
+const getIdsValues = (filters) => {
+  let values = []
+  filters.forEach(item => {
+    values[item] = process.env[item]
+  })
+  return values
+}
+
 
 const connectURL = async (url) => {
   try {
@@ -39,12 +47,13 @@ const connectURL = async (url) => {
 
 }
 
-const getKeys = async (dom, keys) => {
-  let values = []
-  keys.forEach(key => {
+const getKeys = (dom, keys) => {
+  let values = {}
+  for (let index = 0; index < keys.length; index++) {
+    const key = keys[index];
     partial = dom.window.document.getElementById(key)
     values[key] = findTextContent(partial)
-  })
+  }
   return values
 }
 
@@ -55,9 +64,13 @@ const findTextContent = (partial) => {
 }
 
 const getUrlDataUpdate = async (url, keys) => {
-  let dom = await connectURL(url)
-  let values = getKeys(dom, keys)
-  return values
+  try {
+    let dom = await connectURL(url)
+    let values = getKeys(dom, keys)
+    return values
+  } catch (error) {
+    return null
+  }
 }
 
 const getUrlData = async (url, key) => {
@@ -67,12 +80,12 @@ const getUrlData = async (url, key) => {
 }
 
 
-
-
 module.exports = {
   getUrls,
   getIds,
+  getIdsValues,
   getUrlDataUpdate,
-  getUrlData
+  getUrlData,
+  getFileData
 }
 
