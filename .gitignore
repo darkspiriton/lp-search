@@ -3,3 +3,4 @@
 /node_modules/*
 jest.config.json
 .env
+/test/data.txt
