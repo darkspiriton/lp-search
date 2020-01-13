@@ -1,0 +1,7 @@
+test_disclaimer1
+test_disclaimerButtonText1
+test_buttonText1
+test_disclaimer2
+test_disclaimerButtonText2
+test_buttonText2
+test_footerLegalText
