@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "generate": "node js/index.js",
-    "test": "jest --config jest.config.json --verbose=false"
+    "download": "cross-env MENU_NAME=menus.txt TYPE_NAME=type.txt ALL_URL_NAME=all_urls.txt COMPARE_URL_NAME=compare_urls.txt FILE_ID_NAME=ids.txt FILE_DATA_NAME=data.txt node js/index.js",
+    "compare": "cross-env MENU_NAME=menus.txt TYPE_NAME=type.txt ALL_URL_NAME=all_urls.txt COMPARE_URL_NAME=compare_urls.txt FILE_ID_NAME=ids.txt FILE_DATA_NAME=data.txt jest --config jest.config.json"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
+    "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
+    "inquirer": "^7.0.3",
     "jsdom": "^15.2.1",
     "lodash": "^4.17.15"
   },
