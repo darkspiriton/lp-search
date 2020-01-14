@@ -1,6 +1,7 @@
-/files/urls.txt
 /reports/report-lp-urls.html
 /node_modules/*
 jest.config.json
 .env
-/test/data.txt
+/test/files/data.txt
+/test/files/type.txt
+/test/files/log.txt
